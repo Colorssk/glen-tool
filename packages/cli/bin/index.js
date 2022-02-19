@@ -1,2 +1,8 @@
 #! /usr/bin/env node
-console.log('glen-cli');
+const importLocal = require('import-local');
+
+if(importLocal(__filename)){
+    require('npmlog').info('cli','running local package')
+}else{
+    require('../lib')(process.argv.slice(2))
+}
