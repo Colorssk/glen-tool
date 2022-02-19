@@ -30,12 +30,12 @@ function registerCommand() {
     .name(Object.keys(pkg.bin)[0])
     .usage('<command> [options]')
     .version(pkg.version)
-    .option('-d, --debug', '是否开启调试模式', false)
-    .option('-tp, --targetPath <targetPath>', '是否指定本地调试文件路径', '');
+    .option('-d, --debug', 'whether open debug', false)
+    .option('-tp, --targetPath <targetPath>', 'whether specify the local script', '');
 
   program
     .command('init [projectName]')
-    .option('-f, --force', '是否强制初始化项目')
+    .option('-f, --force', 'whether initialize forcibly')
     .action(exec);
 
   // 开启debug模式
