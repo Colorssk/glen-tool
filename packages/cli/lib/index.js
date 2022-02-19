@@ -6,11 +6,11 @@ const semver = require('semver')
 const colors = require('colors/safe');
 const userHome = require('user-home');
 const pathExists = require('path-exists').sync;
-const log = require('../utils/log')
+const log = require('./utils/log')
 const pkg = require('../package.json');
 const constant = require('./const');
 const commander = require('commander');
-const exec = require('../exec');
+const exec = require('./exec');
 
 const program = new commander.Command();
 async function  core() {
@@ -97,7 +97,7 @@ async function prepare() {
 async function checkGlobalUpdate() {
     const currentVersion = pkg.version;
     const npmName = pkg.name;
-    const { getNpmSemverVersion } = require('../utils/get-npm-info');
+    const { getNpmSemverVersion } = require('./utils/get-npm-info');
     const lastVersion = await getNpmSemverVersion(currentVersion, npmName);
     if (lastVersion && semver.gt(lastVersion, currentVersion)) {
       log.warn(colors.yellow(`please manual update ${npmName}，current version：${currentVersion}，latest version：${lastVersion}
