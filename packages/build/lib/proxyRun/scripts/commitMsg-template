@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+if(!process.argv[2]){
+    console.log('未和远程仓库建立连接');
+    process.exit(1);
+}else{
+    const msg = fs.readFileSync(process.argv[2], 'utf-8').trim()
+    if(!/^<%= rules %>$/.test(msg)){
+        console.log('格式违法不正确')
+        console.log(`<%= message %>
+        `)
+        console.log('请查看本地的配置文件的规则')
+        process.exit(1);
+    }
+}
+
+process.exit(0);

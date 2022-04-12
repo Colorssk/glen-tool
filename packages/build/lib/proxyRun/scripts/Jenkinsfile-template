@@ -1,0 +1,62 @@
+pipeline {
+  agent {
+    docker {
+      image 'node:14.17.5'
+    }
+
+  }
+  options {
+    buildDiscarder logRotator(artifactNumToKeepStr: '1', numToKeepStr: '1')
+  }
+  stages {
+    stage('Test') {
+      steps {
+        sh 'npm -v'
+        sh 'node -v'
+        sh 'yarn -v'
+      }
+    }
+
+    stage('install') {
+      steps {
+        sh 'npm install'
+      }
+    }
+
+    stage('build') {
+      steps {
+        sh 'npm run build'
+      }
+    }
+
+    stage('archive') {
+      steps {
+        sh 'tar -czvf <%= projectName %>.tar.gz build'
+        archiveArtifacts artifacts: '<%= projectName %>.tar.gz', followSymlinks: false
+      }
+    }
+
+    stage('Remote Server') {
+      when {
+        branch "<%= branch %>"
+      }
+      steps {
+        withCredentials([sshUserPrivateKey(credentialsId: '<%= credentialsId %>', keyFileVariable: 'identity')]) {
+          script{
+            def remote = [:]
+            remote.user = 'sumscope'
+            remote.allowAnyHosts = true
+            remote.name = '开发环境'
+            remote.host = '<%= host %>'
+            remote.identityFile = identity // 私钥
+
+            sshPut remote: remote, from: "<%= projectName %>.tar.gz", into: "/opt/sumscope"
+            sshCommand remote: remote, command: "rm -rf /opt/sumscope/UPPC/webclient/pc/<%= projectName %>"
+            sshCommand remote: remote, command: "mkdir -p /opt/sumscope/UPPC/webclient/pc/<%= projectName %>"
+            sshCommand remote: remote, command: "tar -xzvf /opt/sumscope/<%= projectName %>.tar.gz -C /opt/sumscope/UPPC/webclient/pc/<%= projectName %>/ --strip 1"
+          }
+        }
+      }
+    }
+  }
+}

@@ -28,5 +28,9 @@
   },
   "devDependencies": {
     "react": "^17.0.2"
+  },
+  "dependencies": {
+    "axios": "^0.26.0",
+    "npmlog": "^4.1.2"
   }
 }

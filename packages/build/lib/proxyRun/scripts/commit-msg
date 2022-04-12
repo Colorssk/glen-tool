@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+const execSync = require('child_process').execSync;
+const fs = require('fs');
+if(!process.argv[2]){
+    console.log('未和远程仓库建立连接');
+    console.log(process.argv)
+    process.exit(1);
+}else{
+    const msg = fs.readFileSync(process.argv[2], 'utf-8').trim()
+    const month = (new Date().getMonth() + 1) < 10 ? '0' + String(new Date().getMonth() + 1) : String(new Date().getMonth() + 1)
+    const day = new Date().getDate() < 10 ? '0' + String(new Date().getDate()) : String(new Date().getDate())
+    const date = String(new Date().getFullYear()) + month +  day
+    const version  =  execSync('git branch -v').toString().trim().split(' ')[1];
+    const combineMsg = `${date}|${version}|${msg}`
+    fs.writeFileSync(process.argv[2], combineMsg)
+}
+
+process.exit(0);

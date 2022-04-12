@@ -1,6 +1,6 @@
 {
   "name": "@glen-tool/build",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "tool for ci/cd and build script",
   "author": "ming.yan <ming.yan@sumscope.com>",
   "homepage": "https://github.com/Colorssk/glen-tool#readme",
@@ -30,10 +30,17 @@
     "url": "https://github.com/Colorssk/glen-tool/issues"
   },
   "dependencies": {
-    "import-local": "^3.0.2",
-    "commander": "^6.2.1",
-    "npmlog": "^4.1.2",
+    "@glen-tool/cli": "^1.0.2",
+    "@glen-tool/tool": "^1.0.0",
     "colors": "^1.4.0",
-    "inquirer": "^7.3.3"
+    "commander": "^6.2.1",
+    "ejs": "^3.1.5",
+    "fs-extra": "^10.0.1",
+    "import-local": "^3.0.2",
+    "inquirer": "^7.3.3",
+    "npmlog": "^4.1.2",
+    "semver": "^7.3.4",
+    "shelljs": "^0.8.5",
+    "user-home": "^2.0.0"
   }
 }
