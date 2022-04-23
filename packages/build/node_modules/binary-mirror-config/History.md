@@ -1,4 +1,10 @@
 
+1.40.1 / 2022-04-14
+==================
+
+**others**
+  * [[`d229280`](http://github.com/cnpm/binary-mirror-config/commit/d229280eb35db1c075d672b63dd604677e43a6d4)] - 🐛 FIX: Use new sqlite3 mirror config (#28) (fengmk2 <<fengmk2@gmail.com>>)
+
 1.40.0 / 2022-03-07
 ==================
 

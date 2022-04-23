@@ -31,7 +31,8 @@
   },
   "dependencies": {
     "@glen-tool/cli": "^1.0.2",
-    "@glen-tool/tool": "^1.0.0",
+    "@glen-tool/tool": "file:../tool",
+    "axios": "^0.26.1",
     "colors": "^1.4.0",
     "commander": "^6.2.1",
     "ejs": "^3.1.5",
@@ -41,6 +42,7 @@
     "npmlog": "^4.1.2",
     "semver": "^7.3.4",
     "shelljs": "^0.8.5",
+    "simple-git": "^2.20.1",
     "user-home": "^2.0.0"
   }
 }

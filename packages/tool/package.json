@@ -1,6 +1,6 @@
 {
   "name": "@glen-tool/tool",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "tools for react project ",
   "author": "ming.yan <ming.yan@sumscope.com>",
   "homepage": "https://github.com/Colorssk/glen-tool#readme",
@@ -31,6 +31,8 @@
   },
   "dependencies": {
     "axios": "^0.26.0",
-    "npmlog": "^4.1.2"
+    "inquirer": "^8.2.2",
+    "npmlog": "^4.1.2",
+    "terminal-link": "^2.1.1"
   }
 }

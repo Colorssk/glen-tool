@@ -7,6 +7,7 @@ const pkg = require('../package.json');
 const execute = require('./exec');
 const ciGenerate = require('./CI');
 const proxyRun = require('./proxyRun');
+const gitExecute = require('./gitAction');
 
 
 async function build(){
@@ -33,6 +34,11 @@ async function registerCommand() {
         .command('run')
         .option('-jk, --jekins', 'gererate jekinsFile', false)
         .action(proxyRun)
+
+    program
+        .command('git')
+        .option('-rft, --refreshToken', 'force to resfresh token', false)
+        .action(gitExecute)
 
     program
         .command('execute [script]')
