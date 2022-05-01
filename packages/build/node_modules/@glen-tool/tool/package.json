@@ -33,6 +33,7 @@
     "axios": "^0.26.0",
     "inquirer": "^8.2.2",
     "npmlog": "^4.1.2",
-    "terminal-link": "^2.1.1"
+    "terminal-link": "^2.1.1",
+    "cli-spinner": "^0.2.10"
   }
 }

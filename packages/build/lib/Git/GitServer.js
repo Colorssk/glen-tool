@@ -22,7 +22,6 @@ function error(methodName) {
     };
   
     isHttpResponse = (response) => {
-      console.log('response', 'stdout:',response)
       return response && response.status && response.statusText &&
         response.headers && response.data && response.config;
     };

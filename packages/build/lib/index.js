@@ -28,6 +28,7 @@ async function registerCommand() {
         .option('-s, --script <script>', 'set your run script')
         .option('-tp, --targetPath <targetPath>', 'set your rule path to verify msg', '')
         .option('-wp, --webpackPath <webpackPath>', 'set your webpackPath path', '')
+        .option('-h, --host', 'specify the host of url as parameter(BASE_URL)', '')
 
     // 代理启动项目
     program
@@ -38,6 +39,8 @@ async function registerCommand() {
     program
         .command('git')
         .option('-rft, --refreshToken', 'force to resfresh token', false)
+        .option('-p, --pull', 'update local branch', false)
+        .option('-m, --merge', 'merge request', false)
         .action(gitExecute)
 
     program
@@ -75,6 +78,11 @@ async function registerCommand() {
 
     program.on('option:webpackPath', function(){
         process.env.WEBPACKPATH = program.webpackPath;
+    })
+
+    //specify the host of url, use in git command
+    program.on('option:host', function(){
+        process.env.HOST = program.host;
     })
     program.parse(process.argv)
 }

@@ -1,12 +1,12 @@
 const axios = require('axios');
 
-const BASE_URL = 'http://gitlab.sumscope.com/api/v4';
+const BASE_URL = process.env.host ? `http://${process.env.host}/api/v4`  : 'http://gitlab.sumscope.com/api/v4';
 class GitlabRequest {
   constructor(token) {
     this.token = token;
     this.service = axios.create({
       baseURL: BASE_URL,
-      timeout: 5000,
+      timeout: 30000,
     });
     this.service.interceptors.response.use(
       response => {

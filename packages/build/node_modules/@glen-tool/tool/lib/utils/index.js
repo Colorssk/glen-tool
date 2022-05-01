@@ -16,6 +16,14 @@ function serialize(){
     return args;
 }
 
+function spinnerStart(msg, spinnerString = '|/-\\') {
+  const Spinner = require('cli-spinner').Spinner;
+  const spinner = new Spinner(msg + ' %s');
+  spinner.setSpinnerString(spinnerString);
+  spinner.start();
+  return spinner;
+}
+
 function writeFile(path, data, { rewrite = true } = {}) {
   if (fs.existsSync(path)) {
     if (rewrite) {
@@ -62,5 +70,6 @@ module.exports = {
     readFile,
     writeFile,
     terminalLink,
-    inquirer
+    inquirer,
+    spinnerStart
 }

@@ -9,7 +9,6 @@ class GitAction extends Command {
     }
     async exec(){
         this.git.prepare();
-        console.log('exec',this.git)
     }
     
 }
