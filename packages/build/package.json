@@ -1,6 +1,6 @@
 {
   "name": "@glen-tool/build",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "tool for ci/cd and build script",
   "author": "ming.yan <ming.yan@sumscope.com>",
   "homepage": "https://github.com/Colorssk/glen-tool#readme",
