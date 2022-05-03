@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@glen-tool/cli": "^1.0.2",
-    "@glen-tool/tool": "file:../tool",
+    "@glen-tool/tool": "^1.0.2",
     "axios": "^0.26.1",
     "colors": "^1.4.0",
     "commander": "^6.2.1",

@@ -381,7 +381,7 @@ pnpm-debug.log*
                 process.exit(0)
             }
         } else {
-            const choicesBranchs = this.upstreamBranches.map(el => ({ name: el, value: el }))
+            const choicesBranchs = this.upstreamBranches.map(el => ({ name: el, value: el })).filter(el=>String(el.value)!==String(this.currentBranch))
             const upstreamUpdateBranch = await dataTool.inquirer({
                 type: 'list',
                 choices: choicesBranchs,
@@ -439,9 +439,11 @@ pnpm-debug.log*
             if (isCheckout) {
                 console.log('all localBranches', this.localBranches.all)
                 if (this.localBranches.all.indexOf(branch) >= 0) {
+                    console.log('123')
                     await this.git.checkout(branch);
                 } else {
-                    await this.git.checkoutLocalBranch(branch);
+                    console.log('222')
+                    await this.git.checkout(['-b', `${branch}`, `origin/${branch}`]);
                 }
             }
             await this.git.pull('upstream', `${branch}`, { '--rebase': 'true' })
