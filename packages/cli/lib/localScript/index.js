@@ -54,6 +54,7 @@ class InitCommand extends Command {
 
   async installTemplate() {
     log.verbose('templateInfo', this.templateInfo);
+    console.log('get templateInfo before install', this.templateInfo)
     if (this.templateInfo) {
       if (!this.templateInfo.type) {
         this.templateInfo.type = TEMPLATE_TYPE_NORMAL;
@@ -62,8 +63,9 @@ class InitCommand extends Command {
         // 标准安装
         await this.installNormalTemplate();
       } else if (this.templateInfo.type === TEMPLATE_TYPE_CUSTOM) {
-        // 自定义安装
-        await this.installCustomTemplate();
+        // 自定义安装 有需要会执行脚本
+        await this.installNormalTemplate();
+        // await this.installCustomTemplate();
       } else {
         throw new Error('unknown project template type！');
       }
@@ -365,23 +367,36 @@ class InitCommand extends Command {
         ...project,
       };
     } else if (type === TYPE_COMPONENT) {
-      const descriptionPrompt = {
-        type: 'input',
-        name: 'componentDescription',
-        message: 'please input component description',
-        default: '',
-        validate: function(v) {
-          const done = this.async();
-          setTimeout(function() {
-            if (!v) {
-              done('please input component description');
-              return;
+      console.log('进入组件判断')
+      console.log(this.template)
+      const { inquiryKeys = [] } = this.template[0];
+      const componentPrompts = []
+      console.log('this inquirkeys', inquiryKeys)
+      if(inquiryKeys.length){
+        inquiryKeys.forEach(el=>{
+          componentPrompts.push({
+            type: 'input',
+            name: el,
+            message: `please specify <${el}> in repo`,
+            default: '',
+            validate: function(v) {
+              const done = this.async();
+              setTimeout(function() {
+                if (!v) {
+                  done(`please specify <${el}> in repo`);
+                  return;
+                }
+                done(null, true);
+              }, 0);
             }
-            done(null, true);
-          }, 0);
-        },
-      };
-      projectPrompt.push(descriptionPrompt);
+          })
+        })
+      }
+      if(componentPrompts.length){
+        componentPrompts.forEach(el=>{
+          projectPrompt.push(el)
+        })
+      }
       // 2. 获取组件的基本信息
       const component = await inquirer.prompt(projectPrompt);
       projectInfo = {
