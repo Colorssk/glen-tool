@@ -367,23 +367,33 @@ class InitCommand extends Command {
         ...project,
       };
     } else if (type === TYPE_COMPONENT) {
-      console.log('进入组件判断')
-      console.log(this.template)
-      const { inquiryKeys = [] } = this.template[0];
+      const { cherryPick = {}, inquiryKeys = [] } = this.template[0];
+      let conponentOptions = {}
+      // select default config
+      const { defaultConfigKey } = await inquirer.prompt({
+        type: 'list',
+        name: 'defaultConfigKey',
+        message: 'please select the config from default configurations',
+        default: 'primarybiddingsystem',
+        choices: Object.keys(cherryPick).map(el=>({
+          name: el,
+          value: el
+        }))
+      })
+      conponentOptions = cherryPick[defaultConfigKey]
       const componentPrompts = []
-      console.log('this inquirkeys', inquiryKeys)
       if(inquiryKeys.length){
         inquiryKeys.forEach(el=>{
           componentPrompts.push({
             type: 'input',
             name: el,
-            message: `please specify <${el}> in repo`,
+            message: `please set ${el} in repo`,
             default: '',
             validate: function(v) {
               const done = this.async();
               setTimeout(function() {
                 if (!v) {
-                  done(`please specify <${el}> in repo`);
+                  done(`please set ${el} in repo`);
                   return;
                 }
                 done(null, true);
@@ -402,7 +412,8 @@ class InitCommand extends Command {
       projectInfo = {
         ...projectInfo,
         type,
-        ...component,
+        ...conponentOptions,
+        ...component
       };
     }
     // 生成classname
